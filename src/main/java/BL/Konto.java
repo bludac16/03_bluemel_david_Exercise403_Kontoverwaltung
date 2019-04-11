@@ -10,5 +10,17 @@ package BL;
  * @author David
  */
 public class Konto {
+    private int balance = 50;
+
+    public int getBalance() {
+        return balance;
+    }
     
+    public void withdraw(int amount){
+        balance -= amount;
+    }
+    
+    public void deposit(int amount){
+        balance += amount;
+    }
 }
