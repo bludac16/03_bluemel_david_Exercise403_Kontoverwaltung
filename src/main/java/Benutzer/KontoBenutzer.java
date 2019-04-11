@@ -5,10 +5,23 @@
  */
 package Benutzer;
 
+import BL.Konto;
+
 /**
  *
  * @author David
  */
-public class KontoBenutzer {
+public class KontoBenutzer extends Thread{
+    private Konto konto;
+
+    public KontoBenutzer(Konto konto) {
+        this.konto = konto;
+    }
+
+    @Override
+    public void run() {
+        
+    }
+    
     
 }
