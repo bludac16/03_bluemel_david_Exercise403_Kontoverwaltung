@@ -27,6 +27,9 @@ public class KontoGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupUser = new javax.swing.JPopupMenu();
+        miAddUser = new javax.swing.JMenuItem();
+        miTestPerformance = new javax.swing.JMenuItem();
         panelAccount = new javax.swing.JPanel();
         lbAmount = new javax.swing.JLabel();
         panelUser = new javax.swing.JPanel();
@@ -35,6 +38,12 @@ public class KontoGUI extends javax.swing.JFrame {
         panelOutput = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taOutput = new javax.swing.JTextArea();
+
+        miAddUser.setText("Add user");
+        popupUser.add(miAddUser);
+
+        miTestPerformance.setText("Perform account test");
+        popupUser.add(miTestPerformance);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,11 +56,9 @@ public class KontoGUI extends javax.swing.JFrame {
         panelUser.setBorder(javax.swing.BorderFactory.createTitledBorder("User"));
         panelUser.setLayout(new java.awt.BorderLayout());
 
-        liUser.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jScrollPane1.setComponentPopupMenu(popupUser);
+
+        liUser.setComponentPopupMenu(popupUser);
         jScrollPane1.setViewportView(liUser);
 
         panelUser.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -112,9 +119,12 @@ public class KontoGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbAmount;
     private javax.swing.JList<String> liUser;
+    private javax.swing.JMenuItem miAddUser;
+    private javax.swing.JMenuItem miTestPerformance;
     private javax.swing.JPanel panelAccount;
     private javax.swing.JPanel panelOutput;
     private javax.swing.JPanel panelUser;
+    private javax.swing.JPopupMenu popupUser;
     private javax.swing.JTextArea taOutput;
     // End of variables declaration//GEN-END:variables
 }
