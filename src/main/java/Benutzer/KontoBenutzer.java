@@ -52,9 +52,17 @@ public class KontoBenutzer extends Thread {
             try {
                 Thread.sleep(1 + rand.nextInt(999));
             } catch (InterruptedException ex) {
-                Logger.getLogger(KontoBenutzer.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    konto.wait();
+                } catch (InterruptedException ex1) {
+                    Logger.getLogger(KontoBenutzer.class.getName()).log(Level.SEVERE, null, ex1);
+                }
             }
         }
+    }
+
+    public Konto getKonto() {
+        return konto;
     }
 
 }

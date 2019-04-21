@@ -11,6 +11,7 @@ package BL;
  */
 public class Konto {
     private int balance = 50;
+    
 
     public int getBalance() {
         return balance;

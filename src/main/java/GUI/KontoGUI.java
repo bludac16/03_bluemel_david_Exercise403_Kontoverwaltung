@@ -5,6 +5,12 @@
  */
 package GUI;
 
+import BL.Konto;
+import Benutzer.KontoBenutzer;
+import java.util.LinkedList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author David
@@ -14,8 +20,12 @@ public class KontoGUI extends javax.swing.JFrame {
     /**
      * Creates new form KontoGUI
      */
+    LinkedList<Thread> users = new LinkedList<Thread>();
+    Konto konto = new Konto();
+    DefaultListModel dlm = new DefaultListModel();
     public KontoGUI() {
         initComponents();
+        liUser.setModel(dlm);
     }
 
     /**
@@ -40,6 +50,11 @@ public class KontoGUI extends javax.swing.JFrame {
         taOutput = new javax.swing.JTextArea();
 
         miAddUser.setText("Add user");
+        miAddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAddUserActionPerformed(evt);
+            }
+        });
         popupUser.add(miAddUser);
 
         miTestPerformance.setText("Perform account test");
@@ -78,6 +93,13 @@ public class KontoGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void miAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddUserActionPerformed
+        String in = JOptionPane.showInputDialog("Please enter the name: ");
+        KontoBenutzer user = new KontoBenutzer(konto);
+        users.add(new Thread(user,in));
+        dlm.addElement(in);
+    }//GEN-LAST:event_miAddUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,7 +140,7 @@ public class KontoGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbAmount;
-    private javax.swing.JList<String> liUser;
+    private javax.swing.JList<Thread> liUser;
     private javax.swing.JMenuItem miAddUser;
     private javax.swing.JMenuItem miTestPerformance;
     private javax.swing.JPanel panelAccount;

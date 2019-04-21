@@ -12,6 +12,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Add user"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAddUserActionPerformed"/>
+          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="miTestPerformance">
           <Properties>
@@ -111,7 +114,7 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Thread&gt;"/>
               </AuxValues>
             </Component>
           </SubComponents>
