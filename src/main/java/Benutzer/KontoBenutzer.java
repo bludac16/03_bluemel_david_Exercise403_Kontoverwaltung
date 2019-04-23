@@ -7,8 +7,8 @@ package Benutzer;
 
 import BL.Konto;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
@@ -18,6 +18,7 @@ public class KontoBenutzer extends Thread {
 
     private Konto konto;
     Random rand = new Random();
+    Lock transferLock = new ReentrantLock();
 
     public KontoBenutzer(Konto konto) {
         this.konto = konto;
@@ -25,37 +26,35 @@ public class KontoBenutzer extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        for (int i = 0; i < 10; i++) {
+
             int amount = 10 + rand.nextInt(40);
             if (1 + rand.nextInt(1) == 1) {
-                synchronized (konto) {
+                transferLock.lock();
+                try {
                     if ((konto.getBalance() - amount) >= 0) {
                         konto.withdraw(amount);
-                        konto.notifyAll();
+                        
                         System.out.format("%s makes withdraw: %d\n", Thread.currentThread().getName(), amount);
-                    } else {
-                        try {
-                            konto.wait();
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(KontoBenutzer.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
+                    } 
+                } finally {
+                    transferLock.unlock();
                 }
 
             } else {
-                synchronized (konto) {
-                    konto.deposit(amount);
-                    konto.notifyAll();
-                    System.out.format("%s makes deposit: %d\n", Thread.currentThread().getName(), amount);
-                }
-            }
-            try {
-                Thread.sleep(1 + rand.nextInt(999));
-            } catch (InterruptedException ex) {
+                transferLock.lock();
                 try {
-                    konto.wait();
-                } catch (InterruptedException ex1) {
-                    Logger.getLogger(KontoBenutzer.class.getName()).log(Level.SEVERE, null, ex1);
+                    konto.deposit(amount);
+                    
+                    System.out.format("%s makes deposit: %d\n", Thread.currentThread().getName(), amount);
+
+                    try {
+                        Thread.sleep(1 + rand.nextInt(999));
+                    } catch (InterruptedException ex) {
+                        
+                    }
+                } finally {
+                    transferLock.unlock();
                 }
             }
         }

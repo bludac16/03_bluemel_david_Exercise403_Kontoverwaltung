@@ -7,6 +7,7 @@ package GUI;
 
 import BL.Konto;
 import Benutzer.KontoBenutzer;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -23,9 +24,11 @@ public class KontoGUI extends javax.swing.JFrame {
     LinkedList<Thread> users = new LinkedList<Thread>();
     Konto konto = new Konto();
     DefaultListModel dlm = new DefaultListModel();
+    
     public KontoGUI() {
         initComponents();
         liUser.setModel(dlm);
+        lbAmount.setText(String.format("%d Euro",konto.getBalance()));
     }
 
     /**
@@ -58,6 +61,11 @@ public class KontoGUI extends javax.swing.JFrame {
         popupUser.add(miAddUser);
 
         miTestPerformance.setText("Perform account test");
+        miTestPerformance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miTestPerformanceActionPerformed(evt);
+            }
+        });
         popupUser.add(miTestPerformance);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -97,9 +105,19 @@ public class KontoGUI extends javax.swing.JFrame {
     private void miAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddUserActionPerformed
         String in = JOptionPane.showInputDialog("Please enter the name: ");
         KontoBenutzer user = new KontoBenutzer(konto);
-        users.add(new Thread(user,in));
-        dlm.addElement(in);
+        Thread nt = new Thread(user,in);
+        users.add(nt);
+        dlm.addElement(nt);
     }//GEN-LAST:event_miAddUserActionPerformed
+
+    private void miTestPerformanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTestPerformanceActionPerformed
+        ArrayList<Thread> selected = new ArrayList<Thread>();
+        selected = (ArrayList<Thread>) liUser.getSelectedValuesList();
+        for (Thread thread : selected) {
+            thread.start();
+            lbAmount.setText(String.format("%d Euro",konto.getBalance()));
+        }
+    }//GEN-LAST:event_miTestPerformanceActionPerformed
 
     /**
      * @param args the command line arguments
