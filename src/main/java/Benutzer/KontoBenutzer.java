@@ -29,7 +29,7 @@ public class KontoBenutzer extends Thread {
         for (int i = 0; i < 10; i++) {
 
             int amount = 10 + rand.nextInt(40);
-            if (1 + rand.nextInt(1) == 1) {
+            if (rand.nextBoolean()) {
                 transferLock.lock();
                 try {
                     if ((konto.getBalance() - amount) >= 0) {

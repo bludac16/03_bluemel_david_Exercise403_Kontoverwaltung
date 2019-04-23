@@ -115,7 +115,7 @@ public class KontoGUI extends javax.swing.JFrame {
         selected = (ArrayList<Thread>) liUser.getSelectedValuesList();
         for (Thread thread : selected) {
             thread.start();
-            lbAmount.setText(String.format("%d Euro",konto.getBalance()));
+            
         }
     }//GEN-LAST:event_miTestPerformanceActionPerformed
 
